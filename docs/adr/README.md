@@ -22,6 +22,7 @@ These rules have no enforcement mechanism, which is why they are written here.
 | [0002](0002-toolchain-and-editor.md) | Compiler and editor selection | accepted |
 | [0003](0003-tensor-view-strategy.md) | Tensor view strategy (mdspan without submdspan) | accepted |
 | [0004](0004-repository-rules.md) | Repository rules | accepted |
+| [0005](0005-benchmark-harness.md) | Benchmark harness | accepted |
 
 Template: [0000-template.md](0000-template.md)
 
