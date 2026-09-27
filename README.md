@@ -1,5 +1,7 @@
 # MacCortex
 
+[![ci](https://github.com/Avrora4/maccortex/actions/workflows/ci.yml/badge.svg)](https://github.com/Avrora4/maccortex/actions/workflows/ci.yml)
+
 A from-scratch deep learning framework in C++23 for Apple Silicon.
 No CUDA — NEON, SME, Accelerate and Metal only.
 
@@ -36,6 +38,16 @@ Deactivate conda and leave `CC`/`CXX` unset before building.
 cmake --preset macos-release
 cmake --build --preset macos-release
 ctest --preset macos-release
+```
+
+## Benchmarks
+
+See the [protocol](docs/benchmarks/PROTOCOL.md). Plotting needs a Python
+virtual environment:
+
+```sh
+python3 -m venv .venv
+.venv/bin/pip install -r tools/requirements.txt
 ```
 
 ## Documentation
