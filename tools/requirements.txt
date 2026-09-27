@@ -1,0 +1,4 @@
+# Python is used only for plotting and, from Phase 1, reference-value generation.
+# MacCortex itself builds and runs without Python. Install into .venv, never
+# into a conda environment (ADR-0002).
+matplotlib>=3.9,<4
