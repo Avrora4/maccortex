@@ -27,7 +27,10 @@ xcode=$(xcodebuild -version | awk '/^Xcode/{v=$2} /Build version/{b=$3} END{prin
 metal=$(xcodebuild -showComponent MetalToolchain 2>/dev/null \
         | awk -F': ' '/^Build Version/{print $2}')
 rev=$(git rev-parse --short HEAD)
-[[ -z "$(git status --porcelain)" ]] || rev="${rev}-dirty"
+# Only tracked files count: untracked result files from an earlier run must not
+# mark the next run dirty. Sources are listed explicitly in CMake, so an
+# untracked file can only reach a build through a tracked change.
+[[ -z "$(git status --porcelain --untracked-files=no)" ]] || rev="${rev}-dirty"
 
 jq -nc \
   --arg machine "$machine" \
