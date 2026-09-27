@@ -26,6 +26,17 @@ interleaved protocol with explicit burst and steady-state figures.
 ./tools/setup_clone.zsh <m3air16|m4air32>
 ```
 
+## Build
+
+Requires Xcode with the Metal Toolchain component, CMake 3.28 or later, and Ninja.
+Deactivate conda and leave `CC`/`CXX` unset before building.
+
+```sh
+cmake --preset macos-release
+cmake --build --preset macos-release
+ctest --preset macos-release
+```
+
 ## License
 
 MIT
