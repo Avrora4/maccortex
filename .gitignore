@@ -40,3 +40,9 @@ __pycache__/
 !.vscode/tasks.json
 !.vscode/launch.json
 .idea/
+
+# incomplete benchmark runs (tools/bench_runner.zsh)
+*.jsonl.partial
+
+# incomplete benchmark runs (tools/bench_runner.zsh)
+*.jsonl.partial
