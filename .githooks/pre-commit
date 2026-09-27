@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+# pre-commit: reject changes that would permanently pollute history.
+# Removing a file from history later requires rewriting it, which changes every
+# commit hash and breaks every permalink in published articles.
+set -u
+
+max_kb=${MCX_MAX_FILE_KB:-1024}
+fail=0
+
+for f in ${(0)"$(git diff --cached --name-only --diff-filter=ACMR -z)"}; do
+  [[ -z "$f" ]] && continue
+
+  # 1) artifact types that must never be versioned (catches `git add -f`)
+  case "$f" in
+    *.safetensors|*.gguf|*.npy|*.npz|*.pt|*.pth|*.ckpt|*.onnx|*.bin|\
+    *.air|*.metallib|*.dmg|*.xip|*.log|\
+    *.trace/*|*.gputrace/*|*.xcresult/*)
+      print -u2 "✗ forbidden artifact: $f"; fail=1; continue ;;
+  esac
+
+  # 2) size of the staged blob, not of the working-tree file
+  size_kb=$(( $(git cat-file -s ":$f") / 1024 ))
+  if (( size_kb > max_kb )); then
+    print -u2 "✗ too large: $f (${size_kb} KB > ${max_kb} KB)"; fail=1
+  fi
+done
+
+# 3) credentials in added lines. Every pattern requires a character class right
+#    after the literal prefix, so this file does not match itself when committed.
+if git diff --cached -U0 | grep -E '^\+[^+]' | grep -qE \
+   'BEGIN ([A-Z]+ )?PRIVATE KEY-----|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|sk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}'; then
+  print -u2 "✗ possible credential in staged changes"; fail=1
+fi
+
+if (( fail )); then
+  print -u2 "commit rejected. If you are certain, bypass once: git commit --no-verify"
+  exit 1
+fi
+exit 0
