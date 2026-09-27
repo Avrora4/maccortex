@@ -17,6 +17,7 @@ Almost nothing works yet.
 
 Both machines are fanless, so every benchmark in this repository follows an
 interleaved protocol with explicit burst and steady-state figures.
+Verified toolchains: [docs/environment/](docs/environment/).
 
 ## Getting started
 
@@ -36,6 +37,13 @@ cmake --preset macos-release
 cmake --build --preset macos-release
 ctest --preset macos-release
 ```
+
+## Documentation
+
+- [Roadmap](docs/ROADMAP.md) (Japanese)
+- [Conventions](docs/conventions.md)
+- [Architecture decision records](docs/adr/)
+- [Benchmark schema](docs/benchmarks/SCHEMA.md) and [protocol](docs/benchmarks/PROTOCOL.md)
 
 ## License
 
