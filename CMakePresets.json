@@ -1,0 +1,70 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": { "CMAKE_EXPORT_COMPILE_COMMANDS": "ON" }
+    },
+    {
+      "name": "macos-debug",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "macos-release",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG"
+      }
+    },
+    {
+      "name": "macos-asan",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer",
+        "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=address,undefined"
+      }
+    },
+    {
+      "name": "macos-metal",
+      "inherits": "macos-release",
+      "cacheVariables": { "MCX_ENABLE_METAL": "ON" }
+    },
+    {
+      "name": "macos-sme",
+      "inherits": "macos-release",
+      "cacheVariables": { "MCX_ENABLE_SME": "ON" }
+    },
+    {
+      "name": "macos-brewllvm",
+      "inherits": "macos-release",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "/opt/homebrew/opt/llvm/bin/clang++"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "macos-debug",   "configurePreset": "macos-debug" },
+    { "name": "macos-release", "configurePreset": "macos-release" },
+    { "name": "macos-asan",    "configurePreset": "macos-asan" },
+    { "name": "macos-metal",   "configurePreset": "macos-metal" },
+    { "name": "macos-sme",     "configurePreset": "macos-sme" }
+  ],
+  "testPresets": [
+    {
+      "name": "macos-release",
+      "configurePreset": "macos-release",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "macos-asan",
+      "configurePreset": "macos-asan",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}
