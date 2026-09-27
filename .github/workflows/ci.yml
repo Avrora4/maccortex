@@ -32,6 +32,12 @@ jobs:
         run: cmake --build --preset macos-release
       - name: Test
         run: ctest --preset macos-release
+      # The benchmark must keep producing valid schema v1 records; its numbers
+      # on a shared runner mean nothing and are not kept.
+      - name: Benchmark smoke test
+        run: |
+          build/macos-release/bench/bench_hello --variant naive --duration-s 0.05 \
+            | jq -e '.schema == 1 and .unit == "GFLOP/s" and .value > 0'
 
   sanitizers:
     runs-on: macos-latest
