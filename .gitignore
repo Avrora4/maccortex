@@ -1,0 +1,42 @@
+# --- build outputs ---
+build/
+cmake-build-*/
+compile_commands.json
+.cache/
+*.air
+*.metallib
+
+# --- never in history: data, weights, traces (also blocked by pre-commit) ---
+data/
+checkpoints/
+runs/
+*.safetensors
+*.gguf
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.trace/
+*.gputrace/
+*.xcresult/
+
+# --- raw terminal logs: commit cleaned excerpts under docs/ instead ---
+*.log
+typescript
+
+# --- python (reference-value generation only) ---
+.venv/
+__pycache__/
+
+# --- macOS ---
+.DS_Store
+
+# --- editors: share VS Code settings across both machines, ignore the rest ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
