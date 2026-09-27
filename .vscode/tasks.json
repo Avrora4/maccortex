@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "link compile_commands",
+      "type": "shell",
+      "command": "ln -sf build/macos-release/compile_commands.json .",
+      "problemMatcher": []
+    },
+    {
+      "label": "metal syntax check",
+      "type": "shell",
+      "command": "for f in src/shaders/*.metal; do [ -e \"$f\" ] && xcrun -sdk macosx metal -fsyntax-only \"$f\"; done",
+      "problemMatcher": []
+    },
+    {
+      "label": "build debug",
+      "type": "shell",
+      "command": "cmake --build --preset macos-debug",
+      "group": "build",
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "probe C++ features",
+      "type": "shell",
+      "command": "./tools/probe_cxx.zsh",
+      "problemMatcher": []
+    }
+  ]
+}

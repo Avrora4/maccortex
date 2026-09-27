@@ -1,0 +1,29 @@
+{
+  "clangd.path": "/opt/homebrew/opt/llvm/bin/clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=never",
+    "--completion-style=detailed"
+  ],
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "cmake.useCMakePresets": "always",
+  "cmake.configureOnOpen": false,
+  "editor.formatOnSave": true,
+  "editor.rulers": [100],
+  "files.associations": {
+    "*.metal": "cpp",
+    "*.hpp": "cpp"
+  },
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false
+  },
+  "files.exclude": {
+    "**/build": true
+  },
+  "search.exclude": {
+    "**/build": true,
+    "**/data": true
+  }
+}

@@ -1,0 +1,13 @@
+# Numeric kernels legitimately use short names (i, j, k, m, n) and magic
+# constants (tile sizes), so those checks are disabled on purpose.
+Checks: >
+  bugprone-*,
+  performance-*,
+  modernize-*,
+  readability-*,
+  -modernize-use-trailing-return-type,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -bugprone-easily-swappable-parameters
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*/(include|src)/maccortex/.*'

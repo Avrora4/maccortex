@@ -1,0 +1,13 @@
+CompileFlags:
+  CompilationDatabase: build/macos-release
+  Remove:
+    - -fmodules-*
+    - -fno-pch-timestamp
+Diagnostics:
+  UnusedIncludes: Strict
+  ClangTidy:
+    Add: [bugprone-*, performance-*]
+InlayHints:
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true

@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug: tests",
+      "program": "${workspaceFolder}/build/macos-debug/tests/mcx_tests",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build debug"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug: hello",
+      "program": "${workspaceFolder}/build/macos-debug/examples/hello_maccortex/hello_maccortex",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build debug"
+    }
+  ]
+}
