@@ -101,7 +101,7 @@ main() {
   section "止めるべきアプリ・プロセス"
   for app in "Visual Studio Code.app" "Xcode.app" "Simulator.app" "Google Chrome.app" \
              "Safari.app" "Claude.app" "Slack.app" "Docker.app"; do
-    pgrep -f "/${app}/" >/dev/null && ng "起動中: ${app}"
+    pgrep -f "/${app}/Contents/MacOS/" >/dev/null && ng "起動中: ${app}"
   done
   for proc in clangd java maestro claude ollama cmake ninja clang xcodebuild; do
     pgrep -x "$proc" >/dev/null && ng "起動中: ${proc}"
