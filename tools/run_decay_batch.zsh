@@ -87,11 +87,13 @@ for i in {1..${#WORKLOADS}}; do
   # 確認スクリプト。NG なら少し待って再確認
   ok=0
   for (( t = 1; t <= MAX_TRIES; t++ )); do
-    if zsh $REPO/tools/bench_preflight.zsh $MACHINE > /dev/null; then
+    if pf_out=$(zsh $REPO/tools/bench_preflight.zsh $MACHINE 2>&1); then
       ok=1
       break
     fi
-    stamp "$w: 確認で NG（${t}/${MAX_TRIES}）。詳細は $LOG_DIR/preflight-$MACHINE-*.log の最新"
+    stamp "$w: 確認で NG（${t}/${MAX_TRIES}）"
+    # NG の理由をバッチのログに残す（朝に原因が分かるように）
+    print -r -- "$pf_out" | grep -E '^\[NG\]|^pgrep:' | sed 's/^/    /'
     (( t < MAX_TRIES )) && wait_min $RETRY_WAIT_MIN "再確認まで"
   done
   if (( ! ok )); then
