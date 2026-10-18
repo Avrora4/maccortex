@@ -14,3 +14,10 @@ target_include_directories(bench_hello PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 target_compile_definitions(bench_hello PRIVATE ACCELERATE_NEW_LAPACK)
 target_link_libraries(bench_hello PRIVATE MacCortex::core ${FOUNDATION_FRAMEWORK})
 mcx_set_warnings(bench_hello)
+
+find_library(ACCELERATE_FRAMEWORK Accelerate REQUIRED)
+
+add_executable(bench_thermal_decay thermal_decay.cpp)
+target_compile_definitions(bench_thermal_decay PRIVATE ACCELERATE_NEW_LAPACK)
+target_link_libraries(bench_thermal_decay PRIVATE ${ACCELERATE_FRAMEWORK})
+mcx_set_warnings(bench_thermal_decay)
